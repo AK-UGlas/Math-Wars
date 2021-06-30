@@ -19,7 +19,7 @@ const CurrentScore = (props) => {
 };
 
 CurrentScore.propTypes = {
-  score: PropTypes.number.isRequired,
+  score: PropTypes.string.isRequired,
 };
 
 export default CurrentScore;

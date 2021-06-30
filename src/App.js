@@ -32,7 +32,7 @@ App.propTypes = {
 
   gameState: PropTypes.shape({
     started: PropTypes.bool.isRequired,
-    kills: PropTypes.number.isRequired,
+    targetsDestroyed: PropTypes.number.isRequired,
     lives: PropTypes.number.isRequired,
 
     bombObjects: PropTypes.arrayOf(PropTypes.shape({

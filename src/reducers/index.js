@@ -1,5 +1,6 @@
-import { MOVE_OBJECTS, startGame, START_GAME } from '../actions';
+import { MOVE_OBJECTS, START_GAME } from '../actions';
 import moveObjects from './moveObjects';
+import startGame from './startGame';
 
 const initialGameState = {
   started: false,

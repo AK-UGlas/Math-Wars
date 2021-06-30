@@ -2,15 +2,16 @@ import { bombState } from "../utils/constants";
 import { generateEquationElements, getRandomArrayElement } from "../utils/formulas";
 
 const createBombs = (state) => {
+    
     if ( !state.gameState.started ) return state; // game hasn't started
 
     const now = (new Date()).getTime();
-    const { lastObjectCreatedAt, bombObjects } = state.gameState;
+    const { lastObjectCreatedAt, bombObjects, targetsLoaded } = state.gameState;
     
     const createNewObject = ( // a boolean
         now - (lastObjectCreatedAt).getTime() > bombState.createInterval 
         && bombObjects.length < bombState.maxBombs
-        && state.targetsLoaded < bombState.totalBombs
+        && targetsLoaded < bombState.totalBombs
     );
 
     if ( !createNewObject ) {

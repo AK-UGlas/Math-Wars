@@ -44,7 +44,7 @@ export const getCanvasPosition = (event) => {
 };
 
 export const getRandomArrayElement = (inputArray) => {
-    return inputArray[Math.floor(Math.random() * inputArray.length())];
+    return inputArray[Math.floor(Math.random() * inputArray.length)];
 };
 
 // create a random <length> digits positive whole number
