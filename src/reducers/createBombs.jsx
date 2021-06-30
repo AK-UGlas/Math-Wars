@@ -21,7 +21,7 @@ const createBombs = (state) => {
     
     // create a timestamp id for the object. 
     const id = (new Date()).getTime();
-    const bombObjectPosition = getRandomArrayElement(bombState.startPositions);
+    const bombObjectPosition = getRandomArrayElement(bombState.startPositions) - 60;
     const bombOperator = getRandomArrayElement(bombState.operators);
 
     const newBombObject = {
@@ -32,6 +32,7 @@ const createBombs = (state) => {
         // this object holds details of the arithmetic expression to solve
         equation: generateEquationElements(bombOperator),
         timeCreated: (new Date()).getTime(),
+        fallTime: 15000,
         id,
     };
 
@@ -46,6 +47,7 @@ const createBombs = (state) => {
                 newBombObject
             ], 
             lastObjectCreatedAt: new Date(),
+            targetsLoaded: state.gameState.targetsLoaded + 1,
         }
     };
 };

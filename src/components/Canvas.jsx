@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CurrentScore from './CurrentScore';
 import Sky from './Sky';
+import Cloud from './Cloud'; 
 import Ground from './Ground';
 import Turret from './Turret';
 import TurretBase from './TurretBase';
@@ -16,16 +17,19 @@ const Canvas = (props) => {
         return <Bomb 
             key={bombObject.id}
             equation={bombObject.equation}
+            fallTime={bombObject.fallTime}
+            position={bombObject.position}
             />
     });
 
-    console.log(bombs);
     return (
       <svg
         id="game-canvas"
+        xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMax none"
         onMouseMove={props.trackMouse}
         viewBox={viewBox}
+        
       >
           <defs>
               <filter id="shadow">
@@ -44,6 +48,7 @@ const Canvas = (props) => {
               </linearGradient>
           </defs>
           <Sky />
+          <Cloud />
           <Ground />
           <Turret rotation={props.angle}/>
           <TurretBase />
