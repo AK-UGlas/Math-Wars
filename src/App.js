@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   trackMouse(event) {
-    this.canvasMousePosition = getCanvasPosition(event);
+    this.canvasMousePosition = getCanvasPosition(event.clientX, event.clientY);
   }
 
   render() {

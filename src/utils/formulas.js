@@ -20,26 +20,31 @@ export const calculateAngle = (x1, y1, x2, y2) => {
         return -90;
     }
 
-    // angle-theta = arctan( opposite / hypotenuse)
-    // opposite = x2 - x1
-    // hypotenuse = y2 - y1
-
+    // angle-theta = arctan( opposite / hypotenuse); opposite = x2 - x1, hypotenuse = y2 - y1
     const dividend = x2 - x1;
     const divisor = y2 - y1;
     const quotient = dividend / divisor;
     return radiansToDegrees(Math.atan(quotient)) * -1;
 };
 
-export const getCanvasPosition = (event) => {
+export const getCanvasPosition = (absX, absY) => {
     // mouse position on auto-scaling canvas
     // https://stackoverflow.com/a/10298843/1232793
   
     const svg = document.getElementById('game-canvas');
     const point = svg.createSVGPoint();
   
-    point.x = event.clientX;
-    point.y = event.clientY;
+    point.x = absX;
+    point.y = absY;
     const { x, y } = point.matrixTransform(svg.getScreenCTM().inverse());
+    return { x, y };
+};
+
+export const getCanvasElementAbsolutePosition = (id) => {
+    const svgElement = document.getElementById(id);
+    const screenCoordinates = svgElement.getBoundingClientRect();
+    const x = screenCoordinates.right - (screenCoordinates.width / 2);
+    const y = screenCoordinates.bottom - (screenCoordinates.height / 2);
     return { x, y };
 };
 
