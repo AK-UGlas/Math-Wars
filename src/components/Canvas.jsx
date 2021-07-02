@@ -1,6 +1,6 @@
 import React from 'react';
-//import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import CustomCursor from './CustomCursor';
 import CurrentScore from './CurrentScore';
 import Sky from './Sky';
 import Cloud from './Cloud'; 
@@ -18,6 +18,11 @@ const Canvas = (props) => {
                     100 - window.innerHeight, 
                     window.innerWidth, 
                     window.innerHeight];
+
+    const cursorStyle = {
+      cursor: props.gameState.started ? 'none' : 'default',
+      zIndex: -1,
+    }
     
     // render all bomb objects currently in play
     const bombs = props.gameState.bombObjects.map(bombObject => {
@@ -33,12 +38,14 @@ const Canvas = (props) => {
     });
 
     return (
+      <div>
       <svg
         id="game-canvas"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMax none"
         onMouseMove={props.trackMouse}
         viewBox={viewBox}
+        style={cursorStyle}
       >
           <defs>
               <filter id="shadow">
@@ -70,9 +77,13 @@ const Canvas = (props) => {
           <CurrentScore score={`Score: ${0}`}/>
           
           { !props.gameState.started &&
-          <StartButton onClick={() => props.startGame()}/>
-          }
+            <StartButton onClick={() => props.startGame()}/>
+          } 
       </svg>
+      {props.gameState.started &&
+        <CustomCursor />
+      }
+      </div>
     );
 };
 
