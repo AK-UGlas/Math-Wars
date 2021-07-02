@@ -1,4 +1,5 @@
 import React from 'react';
+//import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import CurrentScore from './CurrentScore';
 import Sky from './Sky';
@@ -11,14 +12,23 @@ import Bomb from './Bomb';
 import StartButton from './StartButton';
 
 const Canvas = (props) => {
-    const viewBox = [window.innerWidth / -2, 100 - window.innerHeight, window.innerWidth, window.innerHeight];
-  
+
+    // the SVG viewBox 
+    const viewBox = [window.innerWidth / -2, 
+                    100 - window.innerHeight, 
+                    window.innerWidth, 
+                    window.innerHeight];
+    
+    // render all bomb objects currently in play
     const bombs = props.gameState.bombObjects.map(bombObject => {
         return <Bomb 
             key={bombObject.id}
             equation={bombObject.equation}
             fallTime={bombObject.fallTime}
             position={bombObject.position}
+            selected={bombObject.timeCreated === props.gameState.targetSelected}
+            timeCreated={bombObject.timeCreated}
+            toggleTarget={props.toggleTarget}
             />
     });
 
@@ -29,11 +39,13 @@ const Canvas = (props) => {
         preserveAspectRatio="xMaxYMax none"
         onMouseMove={props.trackMouse}
         viewBox={viewBox}
-        
       >
           <defs>
               <filter id="shadow">
                   <feDropShadow dx="1" dy="1" stdDeviation="2" />
+              </filter>
+              <filter id="bombShadow">
+                  <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="red"/>
               </filter>
               <linearGradient id="skyGradient" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stopColor="rgb(193, 192, 199)"/>
@@ -50,7 +62,7 @@ const Canvas = (props) => {
           <Sky />
           <Cloud />
           <Ground />
-          <Turret rotation={props.angle}/>
+          <Turret rotation={props.angle} mouse={props.mouse} dashVisible={props.gameState.started}/>
           <TurretBase />
           <TurretShell position={{x: 0, y: -100}} />
           

@@ -6,9 +6,17 @@ import Canvas from './components/Canvas';
 class App extends Component {
   componentDidMount() {
     const self = this;
+
+    window.onresize = () => {
+      const canvas = document.getElementById('game-canvas');
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+    }
+    
+    // interval for updating screen elements (look into requestAnimationFrame as more efficient replacement)
     setInterval(() => {
         self.props.moveObjects(self.canvasMousePosition);
-    }, 10);
+    }, 16);
   }
 
   trackMouse(event) {
@@ -19,9 +27,11 @@ class App extends Component {
     return (
       <Canvas
         angle={this.props.angle}
+        mouse={this.props.mousePosition}
         gameState={this.props.gameState}
         startGame={this.props.startGame}
         trackMouse={event => (this.trackMouse(event))}
+        toggleTarget={this.props.toggleTarget}
       />
     );
   }
@@ -58,6 +68,7 @@ App.propTypes = {
 
   moveObjects: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
+  toggleTarget: PropTypes.func.isRequired,
 };
 
 export default App;

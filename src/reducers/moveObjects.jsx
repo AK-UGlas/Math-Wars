@@ -2,7 +2,7 @@ import { calculateAngle } from '../utils/formulas';
 import createBombs from './createBombs';
 
 function moveObjects(state, action) {
-  const mousePosition = action.mousePosition || {x: 0, y: 0};
+  const newMousePosition = action.mousePosition || {x: 0, y: 0};
 
   const newState = createBombs(state);
   
@@ -11,11 +11,12 @@ function moveObjects(state, action) {
      return ((new Date()).getTime() - bomb.timeCreated) < bomb.fallTime;
   });
 
-  const { x, y } = mousePosition;
+  const { x, y } = newMousePosition;
   const angle = calculateAngle(0, 0, x, y);
 
   return {
     ...newState,
+    mousePosition: newMousePosition,
     gameState: {
       ...newState.gameState,
       bombObjects,
