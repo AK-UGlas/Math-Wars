@@ -1,39 +1,81 @@
 // custom cursor, inspired by Andriy Chemerynskiy:
 // https://dev.to/andrewchmr/awesome-animated-cursor-with-react-hooks-5ec3
 
-import './CustomCursor.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled, {keyframes} from 'styled-components';
 
-const Cursor = () => {
-
-    const [position, setPosition] = useState({x: 0, y: 0});
-
-    useEffect(() => {
-        addEventListeners();
-        return () => removeEventListeners();
-    }, []);
-
-    const addEventListeners = () => {
-        document.addEventListener("mousemove", onMouseMove);
-    };
-
-    const removeEventListeners = () => {
-        document.removeEventListener("mousemove", onMouseMove);
+const lockOn = (x, y) => keyframes`
+    0% {
+        transform: rotate(0deg);
     }
 
-    const onMouseMove = (event) => {
-        setPosition({x: event.clientX, y: event.clientY});
+    100% { 
+        transform: rotate(90deg);
+    }
+`;
+
+const Crosshair = styled.g`
+    transform-origin: ${props => props.position.x} ${props => props.position.y};
+    animation: ${props => props.isHovering ? lockOn : 'none'} 1s linear;
+`;
+
+const Cursor = (props) => {
+
+    const hoverState = useSelector(state => state.gameState.targetHovered);
+    const strokeColor = hoverState ? "rgb(255, 0 ,0)" : "#fdfdfd";
+    const radius = 20;
+    
+    const cursorCoordinates = {
+        cx: props.position.x,
+        cy: props.position.y >= 0 ? 0 : props.position.y,
+        outerRadius: radius,
+        innerRadius: radius / 2,
+    }
+
+    const crossHairStyle = {
+        strokeWidth: "2px",
+        stroke: strokeColor
+    }
+
+    const cursorStyle = {
+        fill: "none",
+        strokeWidth: "2px",
+        stroke: strokeColor
     };
-
-
+    
     return (
-        <div className="custom-cursor"
-            style={{
-               left: `${position.x}px`,
-               top: `${position.y}px`
-            }}>
-        </div>
+        <Crosshair isHovering={hoverState} position={props.position}>
+                <circle 
+                    cx={cursorCoordinates.cx}
+                    cy={cursorCoordinates.cy}
+                    r={cursorCoordinates.outerRadius}
+                    style={cursorStyle} 
+                />
+                <circle 
+                    cx={cursorCoordinates.cx}
+                    cy={cursorCoordinates.cy}
+                    r={cursorCoordinates.innerRadius}
+                    style={cursorStyle} 
+                />
 
+                <line 
+                    id="top"
+                    x1={cursorCoordinates.cx - cursorCoordinates.outerRadius} 
+                    y1={cursorCoordinates.cy}
+                    x2={cursorCoordinates.cx - cursorCoordinates.innerRadius}
+                    y2={cursorCoordinates.cy}
+                    style={crossHairStyle}
+                />
+                <line 
+                    id="bottom"
+                    x1={cursorCoordinates.cx + cursorCoordinates.innerRadius} 
+                    y1={cursorCoordinates.cy}
+                    x2={cursorCoordinates.cx + cursorCoordinates.outerRadius}
+                    y2={cursorCoordinates.cy}
+                    style={crossHairStyle}
+                />
+        </Crosshair>
     );
 };
 

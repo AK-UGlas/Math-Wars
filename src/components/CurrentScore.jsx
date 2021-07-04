@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gameHeight } from '../utils/constants';
+import { gameWidth, gameHeight } from '../utils/constants';
 
 const CurrentScore = (props) => {
   const scoreStyle = {
@@ -11,7 +11,7 @@ const CurrentScore = (props) => {
 
   return (
     <g filter="url(#shadow)">
-      <text style={scoreStyle} x="450" y={300 - gameHeight}>
+      <text style={scoreStyle} x={gameWidth + 100} y={300 - gameHeight}>
         {props.score}
       </text>
     </g>

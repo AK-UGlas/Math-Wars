@@ -8,7 +8,7 @@ const TurretBase = (props) => {
     strokeWidth: '2px',
   };
 
-  const baseWith = 80;
+  const baseWidth = 80;
   const halfBase = 40;
   const height = 60;
   const negativeHeight = height * -1;
@@ -27,7 +27,7 @@ const TurretBase = (props) => {
       y: negativeHeight,
     },
     endingAxis: {
-      x: baseWith,
+      x: baseWidth,
       y: 0,
     },
   };

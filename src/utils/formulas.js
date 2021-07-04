@@ -15,16 +15,18 @@ export const radiansToDegrees = radians => ((radians * 180) / Math.PI);
 // https://math.stackexchange.com/questions/714378/find-the-angle-that-creating-with-y-axis-in-degrees
 export const calculateAngle = (x1, y1, x2, y2) => {
     if (x2 >= 0 && y2 >= 0) {
-        return 90;
+        return 1.5708;
     } else if (x2 < 0 && y2 >= 0) {
-        return -90;
+        return -1.5708;
     }
 
     // angle-theta = arctan( opposite / hypotenuse); opposite = x2 - x1, hypotenuse = y2 - y1
     const dividend = x2 - x1;
     const divisor = y2 - y1;
     const quotient = dividend / divisor;
-    return radiansToDegrees(Math.atan(quotient)) * -1;
+    // return the answer in radians.
+    // We'll use both radians and degrees later so don't convert here
+    return Math.atan(quotient) * -1;
 };
 
 export const getCanvasPosition = (absX, absY) => {
@@ -45,7 +47,7 @@ export const getCanvasElementAbsolutePosition = (id) => {
     const screenCoordinates = svgElement.getBoundingClientRect();
     const x = screenCoordinates.right - (screenCoordinates.width / 2);
     const y = screenCoordinates.bottom - (screenCoordinates.height / 2);
-    return { x, y };
+    return getCanvasPosition(x, y);
 };
 
 export const getRandomArrayElement = (inputArray) => {

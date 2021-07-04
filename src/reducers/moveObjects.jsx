@@ -1,8 +1,8 @@
-import { calculateAngle, getCanvasPosition, getCanvasElementAbsolutePosition } from '../utils/formulas';
+import { calculateAngle, getCanvasElementAbsolutePosition } from '../utils/formulas';
 import createBombs from './createBombs';
 
 function moveObjects(state, action) {
-  let newMousePosition = action.mousePosition || {x: 0, y: 0};
+  const newMousePosition = action.mousePosition || {x: 0, y: 0};
 
   const newState = createBombs(state);
   
@@ -15,13 +15,9 @@ function moveObjects(state, action) {
   const activeBombs = bombObjects.filter(bomb => {
     return bomb.timeCreated === state.gameState.targetSelected;
   });
-
-  if (activeBombs.length === 1) {
-    const midpoint = getCanvasElementAbsolutePosition(`${state.gameState.targetSelected}`)
-    newMousePosition = getCanvasPosition(midpoint.x, midpoint.y);
-  }
   
-  const { x, y } = newMousePosition;
+  const targetPosition = activeBombs.length === 1 ? getCanvasElementAbsolutePosition(`${state.gameState.targetSelected}`) : newMousePosition;
+  const { x, y } = targetPosition;
   const angle = calculateAngle(0, 0, x, y);
 
   return {
@@ -29,6 +25,7 @@ function moveObjects(state, action) {
     mousePosition: newMousePosition,
     gameState: {
       ...newState.gameState,
+      targetPosition,
       bombObjects,
       targetSelected: activeBombs.length !== 1 ? null : state.gameState.targetSelected,
     },

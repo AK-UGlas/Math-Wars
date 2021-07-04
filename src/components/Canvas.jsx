@@ -38,7 +38,6 @@ const Canvas = (props) => {
     });
 
     return (
-      <div>
       <svg
         id="game-canvas"
         xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +58,7 @@ const Canvas = (props) => {
                       <stop offset="27%" stopColor="rgb(144, 144, 153)"/>
                       <stop offset="57%" stopColor="rgb(71, 71, 78)"/>
                       <stop offset="100%" stopColor="rgb(43,42,42)"/>
-                  </linearGradient>
+              </linearGradient>
               <linearGradient id="bombGradient">
                       <stop offset="0%" stopColor="rgb(27,27,45)"/>
                       <stop offset="53%" stopColor="rgb(107,107,112)"/>
@@ -69,21 +68,21 @@ const Canvas = (props) => {
           <Sky />
           <Cloud />
           <Ground />
-          <Turret rotation={props.angle} mouse={props.mouse} dashVisible={props.gameState.started}/>
+          { props.gameState.started && bombs }
+          <Turret rotation={props.angle} linePosition={props.gameState.targetPosition} dashVisible={props.gameState.started}/>
           <TurretBase />
           <TurretShell position={{x: 0, y: -100}} />
           
-          { props.gameState.started && bombs }
           <CurrentScore score={`Score: ${0}`}/>
           
           { !props.gameState.started &&
             <StartButton onClick={() => props.startGame()}/>
+          }
+          
+          { props.gameState.started &&
+            <CustomCursor position={props.mousePosition}/>
           } 
       </svg>
-      {props.gameState.started &&
-        <CustomCursor />
-      }
-      </div>
     );
 };
 
