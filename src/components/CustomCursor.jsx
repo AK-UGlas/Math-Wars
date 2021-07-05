@@ -5,19 +5,28 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, {keyframes} from 'styled-components';
 
-const lockOn = (x, y) => keyframes`
-    0% {
+const lockOn = keyframes`
+    from {
         transform: rotate(0deg);
     }
-
-    100% { 
+    to { 
         transform: rotate(90deg);
     }
 `;
 
+const lockOff = keyframes`
+    from {
+        transform: rotate(90deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+`;
+
 const Crosshair = styled.g`
-    transform-origin: ${props => props.position.x} ${props => props.position.y};
-    animation: ${props => props.isHovering ? lockOn : 'none'} 1s linear;
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+    animation: ${props => props.isHovering ? lockOn : lockOff} 0.3s linear forwards;
 `;
 
 const Cursor = (props) => {
