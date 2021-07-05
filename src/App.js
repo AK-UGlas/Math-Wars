@@ -55,7 +55,7 @@ App.propTypes = {
       equation: PropTypes.shape({
         xval: PropTypes.number.isRequired,
         yval: PropTypes.number.isRequired,
-        result: PropTypes.number.isRequired,
+        answer: PropTypes.number.isRequired,
         op: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
       }).isRequired,

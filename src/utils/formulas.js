@@ -99,7 +99,7 @@ export const generateEquationElements = (operator) => {
     return { 
         xval: x,
         yval: y,
-        result: answer,
+        answer,
         op: operator,
         color: bombColor, 
     };

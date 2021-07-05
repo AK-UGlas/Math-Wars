@@ -10,6 +10,7 @@ import TurretBase from './TurretBase';
 import TurretShell from './TurretShell';
 import Bomb from './Bomb';
 import StartButton from './StartButton';
+import AnswerForm from './AnswerForm';
 
 const Canvas = (props) => {
 
@@ -31,7 +32,7 @@ const Canvas = (props) => {
             equation={bombObject.equation}
             fallTime={bombObject.fallTime}
             position={bombObject.position}
-            selected={bombObject.timeCreated === props.gameState.targetSelected}
+            selected={props.gameState.targetSelected !== null && bombObject.timeCreated === props.gameState.targetSelected.timeCreated}
             timeCreated={bombObject.timeCreated}
             toggleTarget={props.toggleTarget}
             />
@@ -81,6 +82,10 @@ const Canvas = (props) => {
           
           { props.gameState.started &&
             <CustomCursor position={props.mousePosition}/>
+          }
+
+          { props.gameState.started &&
+            <AnswerForm target={props.gameState.targetSelected}/>
           } 
       </svg>
     );
@@ -103,7 +108,7 @@ Canvas.propTypes = {
       equation: PropTypes.shape({
         xval: PropTypes.number.isRequired,
         yval: PropTypes.number.isRequired,
-        result: PropTypes.number.isRequired,
+        answer: PropTypes.number.isRequired,
         op: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
       }).isRequired,

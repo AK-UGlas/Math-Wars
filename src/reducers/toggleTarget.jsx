@@ -1,9 +1,13 @@
 const toggleTarget = (state, action) => {
 
-    // toggle the selected target. If 
-    const target = action.timeCreated === state.gameState.targetSelected ? null : action.timeCreated;
-    
-    console.log(action.timeCreated);
+    let target = null;
+
+    // this is the currently selected bomb (null if nothing selected)
+    const currentTarget = state.gameState.targetSelected;
+
+    if (currentTarget === null || currentTarget.timeCreated === action.timeCreated) {
+        target = state.gameState.bombObjects.find(bomb => bomb.timeCreated === action.timeCreated);
+    } 
     
     return {
         ...state,
