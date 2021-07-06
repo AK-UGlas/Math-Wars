@@ -6,6 +6,7 @@ import targetHover from './targetHover';
 import fireShell from './fireShell';
 
 const initialGameState = {
+  turretShellEndPosition: {x: 0, y: 0},
   firing: false,
   started: false,
   targetHovered: false,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gameWidth, gameHeight } from '../utils/constants';
 import styled, {keyframes} from 'styled-components';
 import { useDispatch } from 'react-redux';
@@ -42,8 +42,17 @@ const Push = styled.g`
 
 const AnswerForm = ({target}) => {
 
-    const [playerAnswer, setPlayerAnswer] = useState(0);
+    const [playerAnswer, setPlayerAnswer] = useState('');
     const [pressed, setPressed] = useState(false);
+
+    // reference to text input
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        const textBox = inputRef.current;
+        addEventListeners(textBox);
+        return () => removeEventListeners(textBox);
+    },[]);
 
     const dispatch = useDispatch();
 
@@ -102,17 +111,33 @@ const AnswerForm = ({target}) => {
         },
     }
 
+    const addEventListeners = (textInput) => {
+        textInput.addEventListener("keydown", onKeyDown);
+    };
+
+    const removeEventListeners = (textInput) => {
+        textInput.removeEventListener("keydown", onKeyDown);
+    };
+
     // update user answer stored in component state
     const handleInputChange = (event) => {
-        setPlayerAnswer(event.target.value)
+        setPlayerAnswer(event.target.value);
+    }
+
+    // handle Enter button keypress when text input is in focus
+    const onKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            handleClick();
+        }
     }
 
     const handleClick = () => {
         setPressed(!pressed);
         if (isCorrect) {
-            dispatch({type: FIRE})
-        }
-    }
+            setPlayerAnswer('');
+            dispatch({type: FIRE, firingState: true });
+        };
+    };
 
     return (
         <g>
@@ -122,7 +147,14 @@ const AnswerForm = ({target}) => {
                     <label style={inputStyle}>
                         {equation}
                     </label>
-                    <input type="text" value={playerAnswer} onChange={handleInputChange} style={inputStyle}/>
+                    <input id="answer-input"
+                        type="text" 
+                        value={playerAnswer} 
+                        onChange={handleInputChange}
+                        onKeyDown={onKeyDown} 
+                        style={inputStyle}
+                        ref={inputRef}
+                    />
                 </div>
             </foreignObject>
             <Push cy={button.cy + button.rx + 19}

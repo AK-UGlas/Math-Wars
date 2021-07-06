@@ -7,6 +7,8 @@ const toggleTarget = (state, action) => {
 
     if (currentTarget === null || currentTarget.timeCreated !== action.timeCreated) {
         target = state.gameState.bombObjects.find(bomb => bomb.timeCreated === action.timeCreated);
+        // set focus on the input text box
+        document.querySelector('#answer-input').focus();
     } 
     
     return {

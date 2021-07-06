@@ -8,8 +8,9 @@ export const startGame = () => ({
   type: START_GAME,
 });
 
-export const fireShell = () => ({
+export const fireShell = firingState => ({
   type: FIRE,
+  firingState,
 });
 
 export const moveObjects = mousePosition => ({

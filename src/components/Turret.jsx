@@ -69,13 +69,13 @@ const Turret = (props) => {
     <g>
       {props.dashVisible && 
         <Dash turretState={turretState}>
-            <line
+            {!props.firing && <line
                   x1={0} 
                   y1={0}
                   x2={lineX}
                   y2={lineY >= 0 ? 0 : lineY}
                   style={traceStyle}  
-            />
+            />}
         </Dash> 
       }
       <g transform={transform}>

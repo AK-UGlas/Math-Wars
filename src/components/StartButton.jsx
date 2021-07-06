@@ -1,6 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled, { keyframes } from 'styled-components';
 import { gameWidth } from '../utils/constants';
+
+const breatheAnim = keyframes`
+    0% { transform: scale(1.00); }
+    40% { transform: scale(1.01); }
+    50% { transform: scale(1.011); }
+    60% { transform: scale(1.01) }
+    100% { transform: scale(1.00) }
+`;
+
+const Start = styled.g`
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+    animation: ${breatheAnim} 2s ease-in-out infinite;
+`;
 
 const StartButton = (props) => {
 
@@ -35,12 +50,12 @@ const StartButton = (props) => {
     };
 
     return (
-        <g filter="url(#shadow)">
-        <rect {...button} />
-        <text {...text}>
-            Click To Start!
-        </text>
-        </g>
+        <Start filter="url(#shadow)">
+                <rect {...button} />
+                <text {...text}>
+                    Click To Start!
+                </text>
+        </Start>
     );
 };
 

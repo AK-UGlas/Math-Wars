@@ -1,20 +1,38 @@
-import { black } from "kleur";
 import React from "react";
-import { pathFromBezierCurve } from "../utils/formulas";
+import {ReactComponent as LifeSymbol} from '../images/life_symbol.svg';
+import { gameWidth, gameHeight } from "../utils/constants";
+import styled from 'styled-components';
 
-const PlayerLife = () => {
+const Life = styled.g`
+    stroke-width: 3px;
+    transform: translate(${props => props.x}px, ${props => props.y}px) scale(0.2);
+`;
 
-    const lifeStyle = {
-        fill: "rgb(255, 60, 60)",
-        stroke: "black",
+const PlayerLife = (props) => {
+
+    const iconStyle = {
+        x: gameWidth + 100,
+        y: 350 - gameHeight,
     }
 
-    // player life symbol will be made of 3 parts:
-    // - A path (bezier curve) element for the body
-    // - Two rect elements making the turret
+    const textStyle = {
+        x: gameWidth + 220,
+        y: iconStyle.y + 85,
+        fontFamily: '"Joti One", cursive',
+        fontSize: 85,
+        fill: 'rgb(255, 0, 0)',
+    }
+
     return (
-        <div>
-            
-        </div>
+        <g >
+            <Life {...iconStyle}>
+                <LifeSymbol />
+            </Life>
+            <text {...textStyle}>
+                {`x${props.lives}`}
+            </text>
+        </g>
     );
 };
+
+export default PlayerLife;

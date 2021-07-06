@@ -11,6 +11,7 @@ import TurretShell from './TurretShell';
 import Bomb from './Bomb';
 import StartButton from './StartButton';
 import AnswerForm from './AnswerForm';
+import PlayerLife from './PlayerLife';
 
 const Canvas = (props) => {
 
@@ -49,7 +50,7 @@ const Canvas = (props) => {
       >
           <defs>
               <filter id="shadow">
-                  <feDropShadow dx="1" dy="1" stdDeviation="2" />
+                  <feDropShadow dx="6" dy="6" stdDeviation="2" />
               </filter>
               <filter id="bombShadow">
                   <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="red"/>
@@ -71,10 +72,18 @@ const Canvas = (props) => {
           <Cloud />
           <Ground />
           { props.gameState.started && bombs }
-          <TurretShell />
-          <Turret rotation={props.angle} linePosition={props.gameState.targetPosition} dashVisible={props.gameState.started}/>
+          { props.gameState.started && 
+            <TurretShell targetPosition={props.gameState.turretShellEndPosition} firing={props.gameState.firing}/>
+          }
+          <Turret 
+              rotation={props.angle} 
+              linePosition={props.gameState.targetPosition} 
+              dashVisible={props.gameState.started}
+              firing={props.gameState.firing}
+          />
           <TurretBase />
           <CurrentScore score={`Score: ${0}`}/>
+          <PlayerLife lives={props.gameState.lives}/>
           
           { !props.gameState.started &&
             <StartButton onClick={() => props.startGame()}/>

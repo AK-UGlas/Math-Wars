@@ -2,6 +2,7 @@
 export const skyAndGroundWidth = 5000;
 export const gameHeight = 1400;
 export const gameWidth = 800;
+export const turretShellSpeed = 200; //pixels per second
 
 export const bombState = {
     createInterval: 5000,
