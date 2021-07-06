@@ -1,10 +1,12 @@
-import { MOVE_OBJECTS, START_GAME, TOGGLE_TARGET, HOVER } from '../actions';
+import { MOVE_OBJECTS, START_GAME, TOGGLE_TARGET, HOVER, FIRE } from '../actions';
 import moveObjects from './moveObjects';
 import startGame from './startGame';
 import toggleTarget from './toggleTarget';
 import targetHover from './targetHover';
+import fireShell from './fireShell';
 
 const initialGameState = {
+  firing: false,
   started: false,
   targetHovered: false,
   targetSelected: null,
@@ -32,6 +34,8 @@ function reducer(state = initialState, action) {
       return toggleTarget(state, action);
     case HOVER:
       return targetHover(state, action);
+    case FIRE:
+      return fireShell(state, action);
     default:
       return state;
   }

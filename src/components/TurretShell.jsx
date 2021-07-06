@@ -1,7 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-const TurretShell = (props) => {
+
+const TurretShell = () => {
+
+  const firing = useSelector(state => state.gameState.firing);
+
   const shellStyle = {
     fill: '#777',
     stroke: '#444',
@@ -10,19 +15,12 @@ const TurretShell = (props) => {
   return (
     <ellipse
       style={shellStyle}
-      cx={props.position.x}
-      cy={props.position.y}
+      cx="0"
+      cy="0"
       rx="16"
       ry="16"
     />
   );
-};
-
-TurretShell.propTypes = {
-  position: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired
-  }).isRequired,
 };
 
 export default TurretShell;

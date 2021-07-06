@@ -18,7 +18,7 @@ const Move = styled.g`
             pointer-events: all;
             filter: drop-shadow(0 0 20px rgb(255, 255, 255));
     }
-    animation: ${props => fall(props.position.x, props.position.y)} ${props => props.fallTime}ms linear;
+    animation: ${props => fall(props.position.x, props.position.y)} ${props => props.fallTime}ms linear forwards;
 `;
 
 const Bomb = (props) => {
@@ -78,7 +78,7 @@ Bomb.propTypes = {
     equation: PropTypes.shape({
         xval: PropTypes.number.isRequired,
         yval: PropTypes.number.isRequired,
-        result: PropTypes.number.isRequired,
+        answer: PropTypes.number.isRequired,
         op: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
     }).isRequired,

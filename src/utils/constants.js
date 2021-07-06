@@ -16,3 +16,10 @@ export const turretState = {
     dashLength: 25,
     dashSpace: 40,
 }
+
+export const points = {
+    add: 25,
+    subtract: 50,
+    multiply: 100,
+    divide: 200,
+}

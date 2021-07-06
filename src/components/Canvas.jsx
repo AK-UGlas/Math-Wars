@@ -54,6 +54,7 @@ const Canvas = (props) => {
               <filter id="bombShadow">
                   <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="red"/>
               </filter>
+              
               <linearGradient id="skyGradient" x1="0" x2="0" y1="0" y2="1">
                       <stop offset="0%" stopColor="rgb(193, 192, 199)"/>
                       <stop offset="27%" stopColor="rgb(144, 144, 153)"/>
@@ -70,10 +71,9 @@ const Canvas = (props) => {
           <Cloud />
           <Ground />
           { props.gameState.started && bombs }
+          <TurretShell />
           <Turret rotation={props.angle} linePosition={props.gameState.targetPosition} dashVisible={props.gameState.started}/>
           <TurretBase />
-          <TurretShell position={{x: 0, y: -100}} />
-          
           <CurrentScore score={`Score: ${0}`}/>
           
           { !props.gameState.started &&
