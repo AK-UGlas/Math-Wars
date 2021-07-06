@@ -12,13 +12,17 @@ function moveObjects(state, action) {
      return ((new Date()).getTime() - bomb.timeCreated) < bomb.fallTime;
   });
 
+  // console.log(bombObjects.length, newState.gameState.bombObjects.length);
+  // console.log(bombObjects.length < newState.gameState.bombObjects.length);
+  const remainingLives = bombObjects.length < newState.gameState.bombObjects.length ? newState.gameState.lives - 1 : newState.gameState.lives;
+
   // is there a selected bomb?
   if (state.gameState.targetSelected !== null) {
     // if so, is it still active
     activeBombs = bombObjects.filter(bomb => {
       return bomb.timeCreated === state.gameState.targetSelected.timeCreated;
     });
-  }
+  };
   
   const targetPosition = activeBombs.length === 1 ? getCanvasElementAbsolutePosition(`${state.gameState.targetSelected.timeCreated}`) : newMousePosition;
   const { x, y } = targetPosition;
@@ -29,6 +33,7 @@ function moveObjects(state, action) {
     mousePosition: newMousePosition,
     gameState: {
       ...newState.gameState,
+      lives: remainingLives,
       targetPosition,
       bombObjects,
       targetSelected: activeBombs.length !== 1 ? null : state.gameState.targetSelected,

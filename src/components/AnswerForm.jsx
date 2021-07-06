@@ -70,7 +70,8 @@ const AnswerForm = ({target}) => {
         borderWidth: '4px',
         borderStyle: 'solid',
         width: formWidth,
-        height: 300,
+        height: '300',
+        textAlign: 'center'
     }
 
     const headerStyle = {
@@ -141,7 +142,11 @@ const AnswerForm = ({target}) => {
 
     return (
         <g>
-            <text x={xOffset + 10} y={yOffset} style={headerStyle}>Solve:</text>
+            <text x={xOffset + 10} 
+                y={yOffset} 
+                style={headerStyle}>
+                    Solve:
+            </text>
             <foreignObject x={gameWidth + 50} y={yOffset + 20} width={formWidth+10} height="310">
                 <div style={formStyle}>
                     <label style={inputStyle}>
