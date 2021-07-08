@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { getCanvasPosition } from './utils/formulas';
+import { frameUpdateTime } from './utils/constants';
 import Canvas from './components/Canvas';
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
     // interval for updating screen elements (look into requestAnimationFrame as more efficient replacement)
     setInterval(() => {
         self.props.moveObjects(self.canvasMousePosition);
-    }, 10);
+    }, frameUpdateTime);
   }
 
   trackMouse(event) {

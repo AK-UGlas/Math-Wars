@@ -12,8 +12,6 @@ function moveObjects(state, action) {
      return ((new Date()).getTime() - bomb.timeCreated) < bomb.fallTime;
   });
 
-  // console.log(bombObjects.length, newState.gameState.bombObjects.length);
-  // console.log(bombObjects.length < newState.gameState.bombObjects.length);
   const remainingLives = bombObjects.length < newState.gameState.bombObjects.length ? newState.gameState.lives - 1 : newState.gameState.lives;
 
   // is there a selected bomb?

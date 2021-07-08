@@ -9,4 +9,4 @@ const startGame = (state, initialGameState) => {
     }
 };
 
-export default startGame
+export default startGame;

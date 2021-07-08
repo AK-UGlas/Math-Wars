@@ -135,7 +135,6 @@ const AnswerForm = ({target}) => {
     const handleClick = () => {
         setPressed(!pressed);
         if (isCorrect) {
-            setPlayerAnswer('');
             dispatch({type: FIRE, firingState: true });
         };
     };

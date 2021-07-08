@@ -1,3 +1,5 @@
+import { turretShellSpeed } from "./constants";
+
 export const pathFromBezierCurve = (cubicBezierCurve) => {
     const {
       initialAxis, initialControlPoint, endingControlPoint, endingAxis,
@@ -103,4 +105,18 @@ export const generateEquationElements = (operator) => {
         op: operator,
         color: bombColor, 
     };
+};
+
+export const calculateShellPath = (pos) => {
+    // calculate the duration of the shot from the current position of the bomb
+    const duration = calculateShellDuration(pos);
+    // how far will the bomb have moved in that time
+    const bombSpeed = 100 // moves about 100 pixels per second
+    return Math.floor(bombSpeed * duration); 
+};
+
+export const calculateShellDuration = (pos) => {
+  // some trig - calculate length of hypotenuse
+  const distance = Math.sqrt(pos.x ** 2 + pos.y ** 2);
+  return distance / turretShellSpeed;
 }

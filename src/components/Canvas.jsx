@@ -9,6 +9,7 @@ import Turret from './Turret';
 import TurretBase from './TurretBase';
 import TurretShell from './TurretShell';
 import Bomb from './Bomb';
+import Title from './Title';
 import StartButton from './StartButton';
 import AnswerForm from './AnswerForm';
 import PlayerLife from './PlayerLife';
@@ -82,11 +83,15 @@ const Canvas = (props) => {
               firing={props.gameState.firing}
           />
           <TurretBase />
-          <CurrentScore score={`Score: ${0}`}/>
+          <CurrentScore score={`Score: ${props.gameState.score}`}/>
           <PlayerLife lives={props.gameState.lives}/>
           
           { !props.gameState.started &&
+          <g id='splash-screen'>
+            <Title />
             <StartButton onClick={() => props.startGame()}/>
+          </g>
+            
           }
           
           { props.gameState.started &&

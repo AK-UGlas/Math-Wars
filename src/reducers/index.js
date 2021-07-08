@@ -1,9 +1,10 @@
-import { MOVE_OBJECTS, START_GAME, TOGGLE_TARGET, HOVER, FIRE } from '../actions';
+import { MOVE_OBJECTS, START_GAME, TOGGLE_TARGET, HOVER, FIRE, DESTROY_TARGET } from '../actions';
 import moveObjects from './moveObjects';
 import startGame from './startGame';
 import toggleTarget from './toggleTarget';
 import targetHover from './targetHover';
 import fireShell from './fireShell';
+import destroyBomb from './destroyBomb';
 
 const initialGameState = {
   turretShellEndPosition: {x: 0, y: 0},
@@ -14,6 +15,7 @@ const initialGameState = {
   targetsDestroyed: 0,
   targetsLoaded: 0,
   lives: 3,
+  score: 0,
   bombObjects: [],
   lastObjectCreatedAt: new Date(),
   targetPosition: {x: 0, y: 0}
@@ -37,6 +39,8 @@ function reducer(state = initialState, action) {
       return targetHover(state, action);
     case FIRE:
       return fireShell(state, action);
+    case DESTROY_TARGET:
+      return destroyBomb(state, action);
     default:
       return state;
   }
