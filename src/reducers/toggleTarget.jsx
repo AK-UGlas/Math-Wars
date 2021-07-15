@@ -20,4 +20,4 @@ const toggleTarget = (state, action) => {
     }
 };
 
-export default toggleTarget
+export default toggleTarget;

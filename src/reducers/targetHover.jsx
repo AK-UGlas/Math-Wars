@@ -8,4 +8,4 @@ const targetHover = (state, action) => {
     }
 };
 
-export default targetHover
+export default targetHover;
