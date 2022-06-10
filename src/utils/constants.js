@@ -17,6 +17,7 @@ export const bombState = {
 export const turretState = {
     dashLength: 25,
     dashSpace: 40,
+    piTransform: Math.PI / 180,
 }
 
 export const points = {

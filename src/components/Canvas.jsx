@@ -77,7 +77,7 @@ const Canvas = (props) => {
             <TurretShell targetPosition={props.gameState.turretShellEndPosition} firing={props.gameState.firing}/>
           }
           <Turret 
-              rotation={props.angle} 
+              rotation={props.gameState.started ? props.angle : 0.5 * Math.PI} 
               linePosition={props.gameState.targetPosition} 
               dashVisible={props.gameState.started}
               firing={props.gameState.firing}

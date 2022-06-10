@@ -21,7 +21,7 @@ const Turret = (props) => {
   const targetSelected = useSelector(state => state.gameState.targetSelected);
 
   const angleDegrees = radiansToDegrees(props.rotation);
-  const reciprocalAngle = (180 - angleDegrees) * (Math.PI / 180);
+  const reciprocalAngle = (180 - angleDegrees) * props.turretState.piTransform;
 
   const lineX = props.linePosition.x - (20 * Math.sin(reciprocalAngle) + 1);
   const lineY = props.linePosition.y - (20 * Math.cos(reciprocalAngle) + 1);
